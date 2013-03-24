@@ -1,0 +1,15 @@
+!!! 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style/view.css')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+    script(src='http://www.html5canvastutorials.com/libraries/kinetic-v4.3.0-beta2.js')
+    script(src='/javascripts/instant_canvas.js')
+    script(src='/socket.io/socket.io.js')
+  body
+    div.button
+      a#start
+        img#startimg(src='images/start.gif')
+    div#instant-canvas
+
