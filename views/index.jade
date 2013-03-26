@@ -16,3 +16,21 @@ block content
         button.btn.primary(type="submit") はいる
         br
         a.viewLink(href="/view") view mode
+        br
+        a#go(rel="", name="upload", href="#upload") image upload
+
+  div#upload
+    div.upload_ct
+      div.upload_header
+        h2
+          span#text_large Up load image
+        span#text_middle let's upload image
+      div.upload_body
+        form(action="/upload", method="post", enctype="multipart/form-data")
+          input(name="upfile", type="file")
+          input(value="upload", type="submit")
+
+  script(type='text/javascript')
+    $(function() {
+        $("#go").leanModal();
+    });

@@ -11,7 +11,8 @@ var express = require('express')
   , view = require('./routes/view')
   , http = require('http')
   , path = require('path')
-  , sio  = require('socket.io');
+  , sio  = require('socket.io')
+  , file = require('./routes/upload');
 
 var app = module.exports = express();
 
@@ -49,6 +50,7 @@ app.get('/', routes.index);
 app.post('/enter', enter.enter);
 app.get('/enter', routes.index);
 app.get('/view', view.view);
+app.post('/upload', file.upload);
 
 io.sockets.on('connection', chat.chat);
 

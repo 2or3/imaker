@@ -1,0 +1,7 @@
+extends layout
+
+block content
+
+  form#form(action="/upload", method="post", enctype="multipart/form-data")
+    input(name="upfile", type="file")
+    input(value="upload", type="submit")

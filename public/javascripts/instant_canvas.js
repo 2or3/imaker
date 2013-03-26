@@ -22,7 +22,8 @@ $(document).ready(function() {
     }
   });
   IM.socket.on('res', function(res, msg) {
-    IM.viewText(msg);
+    var id = parseInt(Math.random() * 10000000000);
+    IM.viewText(msg, id);
   });
 });
 
@@ -186,7 +187,8 @@ var IM = {
     }
   },
   imgRepeat: function() {
-    IM.animStop(IM.imgAnim, IM.imgLayer, IM.img);
+    var obj = {"img" : IM.img};
+    IM.animStop(IM.imgAnim, IM.imgLayer, obj);
 
     IM.socket.emit('getImg');
     IM.socket.on('roadImg', function(src) {
@@ -195,7 +197,8 @@ var IM = {
   },
   imgReset: function() {
     try {
-      IM.animStop(IM.imgAnim, IM.imgLayer, IM.img);
+      var obj = {"img" : IM.img};
+      IM.animStop(IM.imgAnim, IM.imgLayer, obj);
       delete IM.imgAnim;
       return this;
     } catch (e) {
@@ -205,7 +208,9 @@ var IM = {
   animStop: function(anim, layer, obj) {
     try {
       anim.stop();
-      layer.remove(obj);
+      for (var value in obj) {
+        layer.remove(value);
+      }
       IM.canvas.remove(layer);
     } catch (e) {
     }
@@ -219,7 +224,7 @@ var IM = {
       y: h,
       image: IM.imageObj,
       width: 350,
-      height: 25,
+      height: 350,
       opacity: 0.1
     });
     IM.imgLayer.add(IM.img);
@@ -243,19 +248,19 @@ var IM = {
       }
     }, layer);
   },
-  viewText: function(msg) {
+  viewText: function(msg, id) {
     var state = 0;
-    IM.txtLayer = new Kinetic.Layer({
+    IM.txtLayer[id] = new Kinetic.Layer({
     });
 
-    IM.addTextCanvas(msg);
+    IM.addTextCanvas(msg, id);
 
-    IM.txtAnim = IM.generateAnim(IM.txtLayer, IM.txtUpdate, IM.txtReset, state);
+    IM.txtAnim[id] = IM.generateAnim(IM.txtLayer[id], IM.txtUpdate, IM.txtReset, state);
 
-    IM.txtAnim.start();
+    IM.txtAnim[id].start();
   },
-  addTextCanvas: function(msg) {
-    IM.remark = new Kinetic.Text({
+  addTextCanvas: function(msg, id) {
+    IM.remark[id] = new Kinetic.Text({
       x: 100,
       y: 60,
       text: msg,
@@ -268,14 +273,14 @@ var IM = {
       opacity: 0.1
     });
 
-    IM.remarkRect = new Kinetic.Rect({
+    IM.remarkRect[id] = new Kinetic.Rect({
       x: 100,
       y: 60,
       stroke: '#555',
       strokeWidth: 5,
       fill: '#ddd',
       width: 380,
-      height: IM.remark.getHeight(),
+      height: IM.remark[id].getHeight(),
       shadowColor: 'black',
       shadowBlur: 10,
       shadowOffset: [10, 10],
@@ -283,9 +288,9 @@ var IM = {
       cornerRadius: 10,
       opacity: 0.1
     });
-    IM.txtLayer.add(IM.remarkRect);
-    IM.txtLayer.add(IM.remark);
-    IM.canvas.add(IM.txtLayer);
+    IM.txtLayer[id].add(IM.remarkRect[id]);
+    IM.txtLayer[id].add(IM.remark[id]);
+    IM.canvas.add(IM.txtLayer[id]);
   },
   txtUpdate: function(layer, frame, diff) {
     var shapes  = layer.getChildren();
@@ -301,8 +306,9 @@ var IM = {
   },
   txtReset: function() {
     try {
-      IM.animStop(IM.txtAnim, IM.txtLayer, IM.text);
-      delete IM.txtAnim;
+      obj = {"text": IM.remark[id], "rect": IM.remarkRect[id]};
+      IM.animStop(IM.txtAnim[id], IM.txtLayer[id], obj);
+      delete IM.txtAnim[id];
       return this;
     } catch (e) {
       return this;
