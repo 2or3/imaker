@@ -1,7 +1,9 @@
-var model = require('../etc/model/text.js');
+var model = require('../etc/model/text.js'),
+    fs    = require('fs');;
 var Text  = model.Text;
 
 var master = [];
+var img_nm = 0;
 master.is_master = false;
 exports.users = {};
 exports.messages = [];
@@ -24,7 +26,7 @@ exports.chat = function(client) {
     for (var key in messages) {
       client.emit('res', messages[key]['user'], messages[key]['msg']);
     }
-    messages.push({'user':'system', 'msg':msg});
+    // messages.push({'user':'system', 'msg':msg});
     // io.sockets.emit('res', 'system', msg);
   });
 
@@ -50,7 +52,7 @@ exports.chat = function(client) {
     io.sockets.emit('updateLoginUsers', users);
     var msg = client.user + 'さんがログアウトしました...';
     // io.sockets.emit('res', 'system', msg);
-    messages.push({'user':'system', 'msg':msg});
+    // messages.push({'user':'system', 'msg':msg});
     if (master.user_id == client.id) {
       master.is_master = false;
       master.user_id   = '';
@@ -58,8 +60,16 @@ exports.chat = function(client) {
   });
 
   client.on('getImg', function() {
-    io.sockets.emit('roadImg', 'images/stop.gif');
-    io.sockets.emit('nextImg', 'images/start.gif');
+    var fo = fs.readdirSync('./public/images/tmp/');
+    var num = (Math.floor(Math.random() * fo.length));
+    if (img_nm == num && num < (fo.length - 1) ) {
+      num++;
+    } else if (img_nm == num && num > 0) {
+      num--;
+    }
+    img_nm = num;
+    var file = fo[num];
+    io.sockets.emit('roadImg', 'images/tmp/' + file);
   });
 
   client.on('init', function() {
