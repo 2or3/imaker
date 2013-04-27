@@ -5,19 +5,23 @@ block content
     div.hero-unit
       a.titleLink(href="/")
         h1= title
-      p test version
+          h2= tt
+      p= sub
     form(action="/enter", method="post")
       div.input.center(style="margin-left:0px")
-        span.label.success なまえ
-        input.xlarge.username(name='username' , type="text ")
+        span.label.success your name
+        input.xlarge.username(name='username' , type="text")
 
       div.center
         br
-        button.btn.primary(type="submit") はいる
-        br
-        a.viewLink(href="/view") view mode
-        br
-        a#go(rel="", name="upload", href="#upload") image upload
+        button.btn.primary(type="submit") enter
+        if mobile.android != true && mobile.iphone != true
+          br
+          a.viewLink(href="/view") view mode
+          br
+          a#go(rel="", name="upload", href="#upload") image upload
+          div#message(style="type:hidden")
+          div#up-img(style="type:hidden")
 
   div#upload
     div.upload_ct
@@ -32,5 +36,27 @@ block content
 
   script(type='text/javascript')
     $(function() {
-        $("#go").leanModal();
+      $("#go").leanModal();
+      var key = "upload";
+      var img = "img";
+      key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+      img = img.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+      var regkey = new RegExp("[\\?&]"+key+"=([^&#]*)");
+      var regimg = new RegExp("[\\?&]"+img+"=([^&#]*)");
+      var qskey = regkey.exec(window.location.href);
+      var qsimg = regimg.exec(window.location.href);
+      if (qskey && qskey[1] == 'true') {
+        $("#go").remove();
+        $("#message").html("File uploaded successfully.");
+        if (typeof(qsimg) !== "undefined") {
+          var img = qsimg[1].replace(/.\/public\//, "");
+          $("#up-img").html("<img src=" + img + ">");
+        }
+        setTimeout(function() { $("#message").html(''); location.href="/"; }, 5000);
+      } else if (qskey && qskey[1] == 'false') {
+        $("#go").remove();
+        $("#message").html("File uploaded failed.");
+        $("#message").css("color", "red");
+        setTimeout(function() { $("#message").html(''); location.href="/"; }, 1000);
+      }
     });

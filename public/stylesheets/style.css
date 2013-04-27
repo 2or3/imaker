@@ -30,13 +30,21 @@ input.username {
 table.chatTable {
   margin: auto;
   width: 60%;
+}
+table.chatTable thead th {
   border-bottom: 1px solid #ddd;
+}
+table.chatTable thead th.name {
+  border-right: 1px dotted #ddd;
 }
 td.nameTd {
   width: 25%;
+  border-right: 1px dotted #ddd;
+  border-top: 1px dashed #ddd;
 }
 td.chatTd {
   width: 75%;
+  border-top: 1px dashed #ddd;
 }
 p.chat {
   text-align: left;
