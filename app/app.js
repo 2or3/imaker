@@ -14,13 +14,13 @@ var express = require('express')
     , methodOverride  = require('method-override')
     , multer = require('multer');
 
-const upload = multer({ dest: 'public/images/tmp/' });
+const upload = multer({ dest: 'app/public/images/tmp/' });
 
 var app = module.exports = express();
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({extended: true, uploadDir:'./uploads'}));
 app.use(methodOverride());
 app.use(require('stylus').middleware(__dirname + '/public'));
