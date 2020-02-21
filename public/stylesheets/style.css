@@ -30,21 +30,13 @@ input.username {
 table.chatTable {
   margin: auto;
   width: 60%;
-}
-table.chatTable thead th {
   border-bottom: 1px solid #ddd;
-}
-table.chatTable thead th.name {
-  border-right: 1px dotted #ddd;
 }
 td.nameTd {
   width: 25%;
-  border-right: 1px dotted #ddd;
-  border-top: 1px dashed #ddd;
 }
 td.chatTd {
   width: 75%;
-  border-top: 1px dashed #ddd;
 }
 p.chat {
   text-align: left;
@@ -61,30 +53,4 @@ div.loginUsers span {
 }
 div.chatDiv max-height 400px {
   overflow: auto;
-}
-#lean_overlay {
-  position: fixed;
-  z-index:100;
-  top: 0px;
-  left: 0px;
-  height:100%;
-  width:100%;
-  background: #000;
-  display: none;
-}
-div#upload {
-  display: none;
-}
-div.upload_header {
-  padding: 1px 18px 5px 18px;
-  border-bottom: 1px solid #CCC;
-  -webkit-border-top-left-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-  background-color: #EEE;
-}
-div.upload_body {
-  padding: 5px 18px 0px 18px;
-  -webkit-border-bottom-left-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  background-color: #FFF;
 }

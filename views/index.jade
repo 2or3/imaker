@@ -31,10 +31,10 @@ block content
         span#text_middle let's upload image
       div.upload_body
         form(action="/upload", method="post", enctype="multipart/form-data")
-          input(name="upfile", type="file")
+          input(name="image", type="file")
           input(value="upload", type="submit")
 
-  script(type='text/javascript')
+  script(type='text/javascript').
     $(function() {
       $("#go").leanModal();
       var key = "upload";
