@@ -15,3 +15,6 @@ npm-debug.log
 
 test/
 cli/
+
+node_modules/
+images/
