@@ -8,7 +8,7 @@ function M() {
 
 var host     = 'localhost';
 var db_name  = 'firstapp';
-var db       = mongoose.connect('mongodb://' + host + '/' + db_name);
+var db       = mongoose.connect('mongodb://' + host + '/' + db_name, { useNewUrlParser: true, useUnifiedTopology: true });
 
 var Schema = mongoose.Schema;
 var Post   = new Schema({
