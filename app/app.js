@@ -3,10 +3,10 @@
  */
 
 var express = require('express')
-    , routes = require('./routes')
-    , enter  = require('./routes/enter')
-    , chat = require('./routes/chat')
-    , view = require('./routes/view')
+    , routes = require('./route')
+    , enter  = require('./route/enter')
+    , chat = require('./route/chat')
+    , view = require('./route/view')
     , http = require('http')
     , path = require('path')
     , sio  = require('socket.io')

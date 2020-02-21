@@ -1,4 +1,4 @@
-var model = require('/home/tsukasa/xfokuses/collarks/etc/model/text.js');
+var model = require('../models/model/text.js');
 var Text  = model.Text;
 
 var data = {

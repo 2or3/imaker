@@ -1,4 +1,4 @@
-var model = require('../etc/model/text.js'),
+var model = require('../models/model/text.js'),
     fs    = require('fs');;
 var Text  = model.Text;
 
